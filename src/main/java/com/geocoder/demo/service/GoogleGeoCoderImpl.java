@@ -48,7 +48,7 @@ public class GoogleGeoCoderImpl {
 		GeoCoding geoCoding = restTemplate.getForObject(builder.toUriString(), GeoCoding.class);
 		log.info("GeoCoding response :: {} ", geoCoding.toString());
 		
-		if (!geoCoding.getGeoCodingResults().isEmpty()) {
+		if (geoCoding.getStatus().equals("OK") && !geoCoding.getGeoCodingResults().isEmpty()) {
 			GeoCodingResult geoResult = geoCoding.getGeoCodingResults().get(0);
 			Location loc = geoResult.getGeometry().getLocation();
 			return new LatLon(loc.getLat(), loc.getLng());
